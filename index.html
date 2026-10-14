@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f6f4" />
+    <meta name="description" content="Tu cubo Rubik virtual. Gira, mezcla y resuelve un cubo 3D interactivo." />
+    <title>Cubo. | Rubik 3D</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/10/13/23/20261013233150-E69R4K7B.js" defer></script>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <a class="brand" href="./" aria-label="Cubo, inicio"><span class="brand-icon"><i data-lucide="box"></i></span>cubo<span class="brand-dot">.</span></a>
+      <span class="header-label">PLAY / EXPLORE / SOLVE</span>
+      <div class="edition"><span class="live-dot"></span> RUBIK 3D <span class="edition-number">N.º 01</span></div>
+    </header>
+    <main class="workspace">
+      <div class="workspace-heading">
+        <div><p class="eyebrow">EL ORIGINAL · 1974</p><h1>Cubo Rubik<span class="title-dot">.</span></h1></div>
+        <div class="puzzle-label"><span>3 × 3 × 3</span><span>CLÁSICO</span></div>
+      </div>
+      <div class="studio">
+        <section class="stage" aria-label="Cubo Rubik interactivo">
+          <div id="canvas-container" aria-label="Vista 3D del cubo Rubik"></div>
+          <div class="stage-top"><span class="status-pill" id="status"><span></span>Resuelto</span><span class="view-label">PERSPECTIVA <i data-lucide="move-3d"></i></span></div>
+          <div class="stage-bottom"><span class="stage-coordinate">X / Y / Z</span><div class="view-tools">
+            <button id="view-reset" class="icon-button" aria-label="Centrar vista" data-tooltip="Centrar vista"><i data-lucide="scan"></i></button>
+            <span class="tool-divider"></span>
+            <button id="zoom-out" class="icon-button" aria-label="Alejar" data-tooltip="Alejar"><i data-lucide="minus"></i></button>
+            <button id="zoom-in" class="icon-button" aria-label="Acercar" data-tooltip="Acercar"><i data-lucide="plus"></i></button>
+            <span class="tool-divider"></span>
+            <button id="auto-rotate" class="icon-button" aria-label="Rotación automática" aria-pressed="false" data-tooltip="Rotación 360°"><i data-lucide="orbit"></i></button>
+            <button id="fullscreen" class="icon-button" aria-label="Pantalla completa" data-tooltip="Pantalla completa"><i data-lucide="maximize"></i></button>
+          </div><span class="stage-version">C / 001</span></div>
+          <div class="loading" id="loading">Preparando cubo...</div>
+        </section>
+        <aside class="controls" aria-label="Controles del juego">
+          <div class="panel-heading"><h2>Tu partida</h2><span class="small-tag">LIVE</span></div>
+          <div class="stats"><div><span class="field-label">TIEMPO</span><strong id="timer">00:00</strong></div><div><span class="field-label">MOVIMIENTOS</span><strong id="move-count">0<span class="stat-unit"> giros</span></strong></div></div>
+          <div class="primary-actions"><button id="scramble" class="button primary"><i data-lucide="shuffle"></i>Mezclar cubo<i data-lucide="arrow-up-right" class="trailing-icon"></i></button><button id="solve" class="button secondary"><i data-lucide="sparkles"></i>Resolver</button></div>
+          <div class="section-heading"><h3>Girar una cara</h3><div class="history-tools"><button id="undo" class="icon-button small" aria-label="Deshacer" data-tooltip="Deshacer" disabled><i data-lucide="undo-2"></i></button><button id="redo" class="icon-button small" aria-label="Rehacer" data-tooltip="Rehacer" disabled><i data-lucide="redo-2"></i></button></div></div>
+          <div class="direction-control" role="group" aria-label="Sentido del giro"><button class="direction active" data-direction="1" aria-pressed="true"><i data-lucide="rotate-cw"></i>Horario</button><button class="direction" data-direction="-1" aria-pressed="false"><i data-lucide="rotate-ccw"></i>Antihorario</button></div>
+          <div class="face-grid">
+            <button class="face-button" data-face="U" aria-label="Girar cara superior"><span class="swatch white"></span><span>Superior</span><kbd>U</kbd></button>
+            <button class="face-button" data-face="D" aria-label="Girar cara inferior"><span class="swatch yellow"></span><span>Inferior</span><kbd>D</kbd></button>
+            <button class="face-button" data-face="F" aria-label="Girar cara frontal"><span class="swatch green"></span><span>Frontal</span><kbd>F</kbd></button>
+            <button class="face-button" data-face="B" aria-label="Girar cara trasera"><span class="swatch blue"></span><span>Trasera</span><kbd>B</kbd></button>
+            <button class="face-button" data-face="L" aria-label="Girar cara izquierda"><span class="swatch orange"></span><span>Izquierda</span><kbd>L</kbd></button>
+            <button class="face-button" data-face="R" aria-label="Girar cara derecha"><span class="swatch red"></span><span>Derecha</span><kbd>R</kbd></button>
+          </div>
+          <div class="speed-heading"><label for="speed">Velocidad de giro</label><span id="speed-label">Normal</span></div><input id="speed" type="range" min="1" max="3" step="1" value="2" aria-label="Velocidad de giro" />
+          <div class="section-heading history-heading"><h3>Últimos movimientos</h3><button id="reset" class="icon-button small" aria-label="Reiniciar cubo" data-tooltip="Reiniciar cubo"><i data-lucide="rotate-ccw"></i></button></div>
+          <div id="history" class="move-history" aria-label="Historial de movimientos"><span class="empty-history">Sin movimientos todavía</span></div>
+          <div class="panel-footer"><span class="footer-dot"></span><span id="session-label">Todo en su lugar.</span></div>
+        </aside>
+      </div>
+      <footer class="bottom-bar"><span>SEIS CARAS. INFINITAS POSIBILIDADES.</span><span class="bottom-credit">Un pequeño reto, una nueva perspectiva.<i data-lucide="asterisk"></i></span></footer>
+    </main>
+    <button id="ai-toggle" class="ai-toggle" type="button" aria-label="Abrir asistente de IA">
+      <i data-lucide="message-circle"></i>
+      <span>IA</span>
+    </button>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
